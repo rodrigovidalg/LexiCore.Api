@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Seguridad.Api.Domain.Entities;
+namespace LexiCore.Domain.Entities;
 
 [Index(nameof(UsuarioId), Name = "idx_usuario_notif")] //Buscar metodo para el usuario
 [Index(nameof(Tipo), Name = "idx_tipo_notif")] //filtra el tipo de notificación E-mail / Whatsapp

@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using ProyectoAnalisisLexico.Infrastructure.Persistence;
-using ProyectoAnalisisLexico.Application.Services;
-using ProyectoAnalisisLexico.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using LexiCore.Infrastructure.Persistence;   // AppDbContext
+using LexiCore.Domain.Entities;             // Archivo, Analisis
+using LexiCore.Application.Services;        // AnalysisService
 
-namespace ProyectoAnalisisLexico.API.Controllers
+namespace LexiCore.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -18,11 +19,6 @@ namespace ProyectoAnalisisLexico.API.Controllers
             _service = new AnalysisService();
         }
 
-        /// <summary>
-        /// Procesa un archivo previamente subido según idioma seleccionado.
-        /// </summary>
-        /// <param name="archivoId">ID del archivo a procesar.</param>
-        /// <param name="idioma">Idioma del texto (es, en, ru).</param>
         [HttpPost("{archivoId}")]
         public async Task<IActionResult> Procesar(int archivoId, [FromQuery] string idioma = "es")
         {
@@ -47,9 +43,6 @@ namespace ProyectoAnalisisLexico.API.Controllers
             });
         }
 
-        /// <summary>
-        /// Devuelve el último análisis realizado de un archivo.
-        /// </summary>
         [HttpGet("{archivoId}")]
         public IActionResult Obtener(int archivoId)
         {

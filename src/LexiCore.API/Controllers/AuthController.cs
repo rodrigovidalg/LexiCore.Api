@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Seguridad.Api.Services;
-using Seguridad.Api.Transport;
 using System.Security.Claims;
+using LexiCore.Application.Features.Seguridad;                 // IAuthService
+using LexiCore.Application.Contracts.Seguridad;               // RegisterRequest, LoginRequest, AuthResponse
 
-namespace Seguridad.Api.Controllers;
+namespace LexiCore.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

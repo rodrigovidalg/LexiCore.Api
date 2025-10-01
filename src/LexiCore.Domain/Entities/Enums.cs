@@ -1,4 +1,4 @@
-namespace Seguridad.Api.Domain.Entities; // ubicacion de la carpeta
+namespace LexiCore.Domain.Entities; // ubicacion de la carpeta
 public enum MetodoLogin { password, facial, qr } // dependiendo que login escoja, por ello los metodos
 public enum TipoNotificacion { email, whatsapp } // metodo para envio de info
 

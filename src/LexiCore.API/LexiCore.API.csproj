@@ -1,24 +1,35 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
-    <TargetFramework>$(TargetFramework)</TargetFramework>
+    <!-- Hereda net8.0 desde Directory.Build.props -->
+    <RootNamespace>LexiCore.API</RootNamespace>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.9">
+    <ProjectReference Include="..\LexiCore.Application\LexiCore.Application.csproj" />
+    <ProjectReference Include="..\LexiCore.Infrastructure\LexiCore.Infrastructure.csproj" />
+    <ProjectReference Include="..\LexiCore.Shared\LexiCore.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+  <Compile Remove="Program_se.cs" />
+  <None Include="Program_se.cs" />
+</ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer">
+      <Version>8.0.10</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql">
+      <Version>8.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational">
+      <Version>8.0.10</Version>
+    </PackageReference>
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ProyectoAnalisisLexico.Application\ProyectoAnalisisLexico.Application.csproj" />
-    <ProjectReference Include="..\ProyectoAnalisisLexico.Infrastructure\ProyectoAnalisisLexico.Infrastructure.csproj" />
-    <ProjectReference Include="..\ProyectoAnalisisLexico.Shared\ProyectoAnalisisLexico.Shared.csproj" />
-  </ItemGroup>
-
 </Project>

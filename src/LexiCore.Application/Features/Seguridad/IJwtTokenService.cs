@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace Seguridad.Api.Services;
+namespace LexiCore.Application.Features.Seguridad;
 
 public interface IJwtTokenService
 {

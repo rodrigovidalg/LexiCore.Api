@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Seguridad.Api.Infrastructure;
-using Seguridad.Api.Services;
-using Seguridad.Api.Services.Notifications;
-using Seguridad.Api.Transport;
+using LexiCore.Infrastructure.Persistence;                     // AppDbContext
+using LexiCore.Application.Features.Seguridad;                 // IQrService, IQrCardGenerator
+using LexiCore.Application.Features.Seguridad.Notifications;   // INotificationService
+using LexiCore.Application.Contracts.Seguridad;                // QrSendRequest
 
-namespace Seguridad.Api.Controllers;
+namespace LexiCore.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

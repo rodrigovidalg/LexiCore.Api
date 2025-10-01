@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Seguridad.Api.Domain.Entities;
+namespace LexiCore.Domain.Entities;
 
 [Index(nameof(SessionTokenHash), Name = "idx_session_token")] //validaciones rapidas para los tokens
 [Index(nameof(UsuarioId), Name = "idx_usuario_sesion")] //busca todas las sesiones del usuario activo

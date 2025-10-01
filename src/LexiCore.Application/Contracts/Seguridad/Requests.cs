@@ -1,7 +1,5 @@
-namespace Seguridad.Api.Transport;
+namespace LexiCore.Application.Contracts.Seguridad;
 
-
-//requisistos necesario para el registro del nuevo usuario 
 public class RegisterRequest
 {
     public string Usuario { get; set; } = default!;
@@ -11,7 +9,6 @@ public class RegisterRequest
     public string? Telefono { get; set; }
 }
 
-//requisitos necesario para el inicio de sesión
 public class LoginRequest
 {
     public string UsuarioOrEmail { get; set; } = default!;

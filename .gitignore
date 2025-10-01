@@ -506,4 +506,5 @@ FodyWeavers.xsd
 *.msi
 *.msix
 *.msm
-*.msp
+*.mspNUL
+nul

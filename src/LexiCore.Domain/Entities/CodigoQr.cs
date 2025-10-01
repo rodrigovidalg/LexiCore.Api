@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations; //para validaciones [key]... etc
 using Microsoft.EntityFrameworkCore; //para los indices index
 
-namespace Seguridad.Api.Domain.Entities;
+namespace LexiCore.Domain.Entities;
 
 [Index(nameof(UsuarioId), Name = "idx_usuario_qr")]  //indices en los usuariosID para realizar consultas
 [Index(nameof(Codigo), IsUnique = true, Name = "idx_codigo_qr")] //indices unico no duplicados

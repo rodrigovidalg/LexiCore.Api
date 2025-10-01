@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using QuestPDF.Infrastructure;              // ⬅️ para licencia
-using Seguridad.Api.Infrastructure;
+using LexiCore.Infrastructure;
 using Seguridad.Api.Services;
 using Seguridad.Api.Services.Notifications;
 

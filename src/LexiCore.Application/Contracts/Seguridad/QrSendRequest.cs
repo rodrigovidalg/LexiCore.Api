@@ -1,4 +1,4 @@
-namespace Seguridad.Api.Transport;
+namespace LexiCore.Application.Contracts.Seguridad;
 
 public class QrSendRequest
 {

@@ -1,28 +1,39 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <ItemGroup>
-    <ProjectReference Include="..\ProyectoAnalisisLexico.Domain\ProyectoAnalisisLexico.Domain.csproj" />
-    <ProjectReference Include="..\ProyectoAnalisisLexico.Shared\ProyectoAnalisisLexico.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.9">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.9">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
-  </ItemGroup>
-
   <PropertyGroup>
-    <TargetFramework>$(TargetFramework)</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>LexiCore.Infrastructure</RootNamespace>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LexiCore.Domain\LexiCore.Domain.csproj" />
+    <ProjectReference Include="..\LexiCore.Shared\LexiCore.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore">
+      <Version>8.0.10</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+      <Version>8.0.10</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+      <Version>8.0.10</Version>
+    </PackageReference>
+    <!-- Si NO usas SQL Server, no agregues SqlServer. Deja Pomelo para MySQL: -->
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql">
+      <Version>8.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- Por si en el futuro guardas backups dentro del proyecto -->
+  <ItemGroup>
+    <Compile Remove="Migrations__bak\**\*.cs" />
+    <EmbeddedResource Remove="Migrations__bak\**\*" />
+    <None Remove="Migrations__bak\**\*" />
+  </ItemGroup>
 </Project>

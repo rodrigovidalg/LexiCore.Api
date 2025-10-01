@@ -1,16 +1,5 @@
-namespace Seguridad.Api.Transport;
+namespace LexiCore.Application.Contracts.Seguridad;
 
-//objetos de respuestas tipicos para el login/inicio de sesion
-
-public class AuthResponse
-{
-    public string AccessToken { get; set; } = default!;
-    public int ExpiresInSeconds { get; set; }
-    public UsuarioDto Usuario { get; set; } = default!;
-}
-
-
-//Vista segura de la información del usuario
 public class UsuarioDto
 {
     public int Id { get; set; }
@@ -18,4 +7,11 @@ public class UsuarioDto
     public string Email { get; set; } = default!;
     public string NombreCompleto { get; set; } = default!;
     public string? Telefono { get; set; }
+}
+
+public class AuthResponse
+{
+    public string AccessToken { get; set; } = default!;
+    public int ExpiresInSeconds { get; set; }
+    public UsuarioDto Usuario { get; set; } = default!;
 }

@@ -1,3 +1,4 @@
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -5,42 +6,43 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Seguridad.Api.Services;
 
-public class JwtTokenService : IJwtTokenService
+namespace LexiCore.Application.Features.Seguridad
 {
-    private readonly JwtOptions _opt;
-    private readonly SymmetricSecurityKey _key;
-    public JwtTokenService(IOptions<JwtOptions> options)
+    public class JwtTokenService : IJwtTokenService
     {
-        _opt = options.Value; //inyección de la configuración 
-        _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_opt.Key)); //Creación de simetria para validar tokens
-    }
+        private readonly JwtOptions _opt;
+        private readonly SymmetricSecurityKey _key;
 
+        public JwtTokenService(IOptions<JwtOptions> options)
+        {
+            _opt = options.Value;
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_opt.Key));
+        }
 
-    //cadena de creación de los tokens
-    public (string token, string jti) CreateToken(IEnumerable<Claim> claims)
-    {
-        var jti = Guid.NewGuid().ToString("N"); //creación del identificador unico
-        var now = DateTime.UtcNow; //Tiempo base
+        public (string token, string jti) CreateToken(IEnumerable<Claim> claims)
+        {
+            var jti = Guid.NewGuid().ToString("N");
+            var now = DateTime.UtcNow;
 
-        var token = new JwtSecurityToken(
-            issuer: _opt.Issuer,
-            audience: _opt.Audience,
-            claims: claims.Append(new Claim(JwtRegisteredClaimNames.Jti, jti)),
-            notBefore: now,
-            expires: now.AddMinutes(_opt.AccessTokenMinutes), //cadeca tras AccessTokenMinutes
-            signingCredentials: new SigningCredentials(_key, SecurityAlgorithms.HmacSha256)
-        );
+            var token = new JwtSecurityToken(
+                issuer: _opt.Issuer,
+                audience: _opt.Audience,                      // puede ser null si no validas Audience
+                claims: claims.Append(new Claim(JwtRegisteredClaimNames.Jti, jti)),
+                notBefore: now,
+                expires: now.AddMinutes(_opt.AccessTokenMinutes),
+                signingCredentials: new SigningCredentials(_key, SecurityAlgorithms.HmacSha256)
+            );
 
-        var jwt = new JwtSecurityTokenHandler().WriteToken(token); //serializa el JWT a string
-        return (jwt, jti);
-    }
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+            return (jwt, jti);
+        }
 
-    public string ComputeSha256(string input)
-    {
-        using var sha = SHA256.Create();
-        var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(input));
-        return Convert.ToHexString(bytes); // hex
+        public string ComputeSha256(string input)
+        {
+            using var sha = SHA256.Create();
+            var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(input));
+            return Convert.ToHexString(bytes);
+        }
     }
 }

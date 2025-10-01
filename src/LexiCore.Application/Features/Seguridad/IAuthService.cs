@@ -1,10 +1,11 @@
-using Seguridad.Api.Transport;
+using LexiCore.Application.Contracts.Seguridad;
 
-namespace Seguridad.Api.Services;
-
-public interface IAuthService
+namespace LexiCore.Application.Features.Seguridad
 {
-    Task<AuthResponse> RegisterAsync(RegisterRequest dto); //creación de un nuevo usuario
-    Task<AuthResponse> LoginAsync(LoginRequest dto); //autentica y emite el JWT
-    Task LogoutAsync(string bearerToken); //revoca la sesión asociada al token
+    public interface IAuthService
+    {
+        Task<AuthResponse> RegisterAsync(RegisterRequest dto);
+        Task<AuthResponse> LoginAsync(LoginRequest dto);
+        Task LogoutAsync(string bearerToken);
+    }
 }

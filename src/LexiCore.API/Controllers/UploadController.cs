@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using ProyectoAnalisisLexico.Infrastructure.Persistence;
-using ProyectoAnalisisLexico.Domain.Entities;
+using LexiCore.Infrastructure.Persistence;
+using LexiCore.Domain.Entities;
 
-namespace ProyectoAnalisisLexico.API.Controllers
+namespace LexiCore.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

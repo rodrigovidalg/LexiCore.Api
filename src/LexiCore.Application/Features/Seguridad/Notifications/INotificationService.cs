@@ -1,12 +1,12 @@
-namespace Seguridad.Api.Services.Notifications;
-
-public interface INotificationService
+namespace LexiCore.Application.Features.Seguridad.Notifications
 {
-
-    Task SendEmailAsync(
-        string toEmail,
-        string subject,
-        string htmlBody,
-        (string FileName, byte[] Content, string ContentType)? attachment = null
-    );
+    public interface INotificationService
+    {
+        Task SendEmailAsync(
+            string toEmail,
+            string subject,
+            string htmlBody,
+            (string FileName, byte[] Content, string ContentType)? attachment = null
+        );
+    }
 }
