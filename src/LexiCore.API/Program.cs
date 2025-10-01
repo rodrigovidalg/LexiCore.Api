@@ -17,7 +17,9 @@ if (string.IsNullOrWhiteSpace(mysqlConn))
 
 // 2) DbContext (Pomelo MySQL)
 builder.Services.AddDbContext<AppDbContext>(opt =>
-    opt.UseMySql(mysqlConn, ServerVersion.AutoDetect(mysqlConn)));
+    opt.UseMySql(mysqlConn, ServerVersion.AutoDetect(mysqlConn))
+    
+    );
 
 // 3) Options tipadas
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));

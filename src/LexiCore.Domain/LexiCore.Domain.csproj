@@ -1,15 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <!-- TargetFramework heredado de Directory.Build.props (net8.0) -->
     <RootNamespace>LexiCore.Domain</RootNamespace>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Necesario para los atributos [Index] en las entidades -->
-    <PackageReference Include="Microsoft.EntityFrameworkCore" PrivateAssets="all">
-      <Version>8.0.10</Version>
-    </PackageReference>
+    <!-- Para usar atributos como [Index] sin “filtrar” el paquete a consumidores -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore" PrivateAssets="all" />
   </ItemGroup>
 </Project>

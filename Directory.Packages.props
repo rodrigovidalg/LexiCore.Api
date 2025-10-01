@@ -1,0 +1,37 @@
+<Project>
+  <ItemGroup>
+    <!-- ASP.NET / Auth -->
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
+
+    <!-- EF Core (núcleo y providers) -->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
+    <PackageVersion Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10" />
+
+    <!-- Extensions -->
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+
+    <!-- Seguridad / JWT -->
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
+
+    <!-- Email / PDF / QR -->
+    <PackageVersion Include="MailKit" Version="4.14.0" />
+    <PackageVersion Include="MimeKit" Version="4.14.0" />
+    <PackageVersion Include="QuestPDF" Version="2025.7.2" />
+    <PackageVersion Include="QRCoder" Version="1.6.0" />
+
+    <!-- Hash -->
+    <PackageVersion Include="BCrypt.Net-Next" Version="4.0.3" />
+
+    <!-- Testing -->
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageVersion Include="coverlet.collector" Version="6.0.2" />
+  </ItemGroup>
+</Project>

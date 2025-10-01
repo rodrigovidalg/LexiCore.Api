@@ -9,20 +9,20 @@ namespace LexiCore.Domain.Entities;
 [Index(nameof(Activo),                       Name = "idx_activo")]
 public class Usuario
 {
-    [Key] 
+    [Key]
     public int Id { get; set; }
 
-    // ==== Datos de acceso / perfil (usa lo de C para no romper Auth) ====
+    // ==== Datos de acceso / perfil (de C) ====
     [Required, StringLength(50)]
-    public string UsuarioNombre { get; set; } = default!;   // antes: 'usuario'
+    public string UsuarioNombre { get; set; } = default!;   // columna "Usuario" (migración incremental)
 
     [Required, StringLength(100)]
     public string Email { get; set; } = default!;
 
     [Required, StringLength(150)]
-    public string NombreCompleto { get; set; } = default!;  // C usaba NombreCompleto
+    public string NombreCompleto { get; set; } = default!;  // mapeado a columna "Nombre"
 
-    // COMPAT con el código de R que esperaba "Nombre"
+    // COMPAT: algunos controladores viejos de R podían leer "Nombre"
     [NotMapped]
     public string Nombre => NombreCompleto;
 
@@ -32,14 +32,15 @@ public class Usuario
     [StringLength(20)]
     public string? Telefono { get; set; }
 
-    // Fechas/estado (unificamos convenciones de C)
+    // C usa FechaCreacion; la migración de R creó "FechaRegistro".
+    // En el DbContext mapeamos FechaCreacion -> "FechaRegistro".
     public DateTime FechaCreacion { get; set; } = DateTime.UtcNow;
 
-    // COMPAT con el modelo de R que tenía "FechaRegistro"
+    // COMPAT para código que aún consulte "FechaRegistro"
     [NotMapped]
     public DateTime FechaRegistro => FechaCreacion;
 
-    public bool Activo { get; set; } = true;
+    public bool Activo { get; set; } = true; // columna "Activo" (migración incremental)
 
     // ==== Navegaciones (C) ====
     public ICollection<AutenticacionFacial> AutenticacionesFaciales { get; set; } = new List<AutenticacionFacial>();
