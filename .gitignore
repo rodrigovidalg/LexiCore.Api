@@ -508,3 +508,29 @@ FodyWeavers.xsd
 *.msm
 *.mspNUL
 nul
+
+# Compilados
+**/bin/
+**/obj/
+**/Debug/
+**/Release/
+
+# IDE/usuario
+.vs/
+*.user
+*.suo
+*.userprefs
+
+# Settings con secretos (mantener SOLO templates en git)
+src/LexiCore.API/appsettings.json
+src/LexiCore.API/appsettings.Development.json
+
+# Varios/ruido
+*.log
+*.tmp
+*.DS_Store
+Thumbs.db
+LexiCore.sln.bak
+NUL
+backups/
+.config/
