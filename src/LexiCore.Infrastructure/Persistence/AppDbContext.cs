@@ -7,7 +7,7 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> opts) : base(opts) { }
 
-    // DbSets (todas las entidades)
+    // DbSets
     public DbSet<Usuario> Usuarios => Set<Usuario>();
     public DbSet<AutenticacionFacial> AutenticacionFacial => Set<AutenticacionFacial>();
     public DbSet<CodigoQr> CodigosQr => Set<CodigoQr>();
@@ -22,34 +22,37 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(mb);
 
-        // (Opcional) Charset/Collation
+        // Charset/Collation (Pomelo MySQL)
         mb.HasCharSet("utf8mb4").UseCollation("utf8mb4_0900_ai_ci");
 
-        // ====== USUARIOS (creada por la migración: "Usuarios") ======
+        // ===========================
+        //  Esquema estilo "R" (PascalCase)
+        // ===========================
+
+        // USUARIOS
         mb.Entity<Usuario>(e =>
         {
             e.ToTable("Usuarios");
-
             e.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd();
 
-            // Columnas que YA existen por la migración:
+            // columnas existentes (R)
             e.Property(p => p.Email).HasColumnName("Email");
             e.Property(p => p.PasswordHash).HasColumnName("PasswordHash");
             e.Property(p => p.Telefono).HasColumnName("Telefono");
-            // Mapeamos propiedades de C a las columnas reales de la migración de R:
+
+            // mapeos compatibilidad (C -> R)
             e.Property(p => p.NombreCompleto).HasColumnName("Nombre");
             e.Property(p => p.FechaCreacion).HasColumnName("FechaRegistro");
 
-            // Columnas NUEVAS que añadiremos con una migración incremental:
+            // columnas nuevas
             e.Property(p => p.UsuarioNombre).HasColumnName("Usuario").HasMaxLength(50);
             e.Property(p => p.Activo).HasColumnName("Activo");
         });
 
-        // ====== ARCHIVOS (creada por la migración: "Archivos") ======
+        // ARCHIVOS
         mb.Entity<Archivo>(e =>
         {
             e.ToTable("Archivos");
-
             e.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd();
             e.Property(p => p.Nombre).HasColumnName("Nombre");
             e.Property(p => p.Ruta).HasColumnName("Ruta");
@@ -63,11 +66,10 @@ public class AppDbContext : DbContext
              .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // ====== ANALISIS (creada por la migración: "Analisis") ======
+        // ANALISIS
         mb.Entity<Analisis>(e =>
         {
             e.ToTable("Analisis");
-
             e.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd();
             e.Property(p => p.ArchivoId).HasColumnName("ArchivoId");
             e.Property(p => p.TotalPalabras).HasColumnName("TotalPalabras");
@@ -84,11 +86,10 @@ public class AppDbContext : DbContext
              .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // ====== REPORTES (creada por la migración: "Reportes") ======
+        // REPORTES
         mb.Entity<Reporte>(e =>
         {
             e.ToTable("Reportes");
-
             e.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd();
             e.Property(p => p.AnalisisId).HasColumnName("AnalisisId");
             e.Property(p => p.RutaPdf).HasColumnName("RutaPdf");
@@ -102,8 +103,89 @@ public class AppDbContext : DbContext
              .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // Las entidades de seguridad (AutenticacionFacial, CodigoQr, MetodoNotificacion, Sesion)
-        // las dejamos por convención (sin configuración específica) y luego creamos migración
-        // cuando toque habilitarlas. No afecta la prueba de /api/upload.
+        // ===========================
+        //  Esquema estilo "C" (snake_case)
+        // ===========================
+
+        // AUTENTICACION FACIAL -> autenticacion_facial
+        mb.Entity<AutenticacionFacial>(e =>
+        {
+            e.ToTable("autenticacion_facial");
+            e.Property(p => p.Id).HasColumnName("id").ValueGeneratedOnAdd();
+            e.Property(p => p.UsuarioId).HasColumnName("usuario_id");
+            e.Property(p => p.EncodingFacial).HasColumnName("encoding_facial").HasColumnType("TEXT");
+            e.Property(p => p.ImagenReferencia).HasColumnName("imagen_referencia").HasColumnType("TEXT");
+            e.Property(p => p.Activo).HasColumnName("activo").HasDefaultValue(true);
+            // ✅ timestamp + CURRENT_TIMESTAMP (evita "Invalid default value")
+            e.Property(p => p.FechaCreacion)
+             .HasColumnName("fecha_creacion")
+             .HasColumnType("timestamp")
+             .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            e.HasOne(p => p.Usuario)
+             .WithMany(u => u.AutenticacionesFaciales)
+             .HasForeignKey(p => p.UsuarioId)
+             .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // CODIGOS QR -> codigos_qr
+        mb.Entity<CodigoQr>(e =>
+        {
+            e.ToTable("codigos_qr");
+            e.Property(p => p.Id).HasColumnName("id").ValueGeneratedOnAdd();
+            e.Property(p => p.UsuarioId).HasColumnName("usuario_id");
+            e.Property(p => p.Codigo).HasColumnName("codigo_qr").HasMaxLength(555);
+            e.Property(p => p.QrHash).HasColumnName("qr_hash").HasMaxLength(555);
+            e.Property(p => p.Activo).HasColumnName("activo").HasDefaultValue(true);
+
+            e.HasOne(p => p.Usuario)
+             .WithMany(u => u.CodigosQr)
+             .HasForeignKey(p => p.UsuarioId)
+             .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // METODOS NOTIFICACION -> metodos_notificacion
+        mb.Entity<MetodoNotificacion>(e =>
+        {
+            e.ToTable("metodos_notificacion");
+            e.Property(p => p.Id).HasColumnName("id").ValueGeneratedOnAdd();
+            e.Property(p => p.UsuarioId).HasColumnName("usuario_id");
+            e.Property(p => p.Destino).HasColumnName("destino").HasMaxLength(150);
+            e.Property(p => p.Activo).HasColumnName("activo").HasDefaultValue(true);
+            // ✅ timestamp + CURRENT_TIMESTAMP
+            e.Property(p => p.FechaCreacion)
+             .HasColumnName("fecha_creacion")
+             .HasColumnType("timestamp")
+             .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            e.Property(p => p.Tipo)
+             .HasConversion<string>()
+             .HasColumnName("tipo_notificacion");
+
+            e.HasOne(p => p.Usuario)
+             .WithMany(u => u.MetodosNotificacion)
+             .HasForeignKey(p => p.UsuarioId)
+             .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // SESIONES -> sesiones
+        mb.Entity<Sesion>(e =>
+        {
+            e.ToTable("sesiones");
+            e.Property(p => p.Id).HasColumnName("id").ValueGeneratedOnAdd();
+            e.Property(p => p.UsuarioId).HasColumnName("usuario_id");
+            e.Property(p => p.SessionTokenHash).HasColumnName("session_token").HasMaxLength(255);
+            e.Property(p => p.MetodoLogin).HasConversion<string>().HasColumnName("metodo_login");
+            // ✅ timestamp + CURRENT_TIMESTAMP
+            e.Property(p => p.FechaLogin)
+             .HasColumnName("fecha_login")
+             .HasColumnType("timestamp")
+             .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            e.Property(p => p.Activa).HasColumnName("activa").HasDefaultValue(true);
+
+            e.HasOne(p => p.Usuario)
+             .WithMany(u => u.Sesiones)
+             .HasForeignKey(p => p.UsuarioId)
+             .OnDelete(DeleteBehavior.Cascade);
+        });
     }
 }

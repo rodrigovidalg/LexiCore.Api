@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using LexiCore.Shared.Options; // <-- para JwtOptions
 
 
 namespace LexiCore.Application.Features.Seguridad

@@ -2,7 +2,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-
+using QuestPDF.Infrastructure;
 using LexiCore.Infrastructure.Persistence;                    // AppDbContext
 using LexiCore.Application.Features.Seguridad;                // IAuthService, AuthService, IJwtTokenService, JwtTokenService, IQrService, QrService, IQrCardGenerator, QrCardGenerator
 using LexiCore.Application.Features.Seguridad.Notifications;  // INotificationService, SmtpEmailNotificationService
@@ -68,10 +68,17 @@ builder.Services.AddScoped<IQrService, QrService>();
 builder.Services.AddSingleton<IQrCardGenerator, QrCardGenerator>(); // stateless
 builder.Services.AddScoped<INotificationService, SmtpEmailNotificationService>();
 
+QuestPDF.Settings.License = LicenseType.Community;
+
 // 7) Controllers
 builder.Services.AddControllers();
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 // 8) Middleware
 app.UseCors("AllowAll");

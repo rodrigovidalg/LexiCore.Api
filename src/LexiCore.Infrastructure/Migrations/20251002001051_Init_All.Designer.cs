@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LexiCore.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251001164527_AddUsuarioYActivoAUsuarios")]
-    partial class AddUsuarioYActivoAUsuarios
+    [Migration("20251002001051_Init_All")]
+    partial class Init_All
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -127,25 +127,35 @@ namespace LexiCore.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("id");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Activo")
-                        .HasColumnType("tinyint(1)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true)
+                        .HasColumnName("activo");
 
                     b.Property<string>("EncodingFacial")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("encoding_facial");
 
                     b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp")
+                        .HasColumnName("fecha_creacion")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("ImagenReferencia")
-                        .HasColumnType("longtext");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("imagen_referencia");
 
                     b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("usuario_id");
 
                     b.HasKey("Id");
 
@@ -153,32 +163,39 @@ namespace LexiCore.Infrastructure.Migrations
 
                     b.HasIndex(new[] { "UsuarioId" }, "idx_usuario_facial");
 
-                    b.ToTable("AutenticacionFacial");
+                    b.ToTable("autenticacion_facial", (string)null);
                 });
 
             modelBuilder.Entity("LexiCore.Domain.Entities.CodigoQr", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("id");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Activo")
-                        .HasColumnType("tinyint(1)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true)
+                        .HasColumnName("activo");
 
                     b.Property<string>("Codigo")
                         .IsRequired()
                         .HasMaxLength(555)
-                        .HasColumnType("varchar(555)");
+                        .HasColumnType("varchar(555)")
+                        .HasColumnName("codigo_qr");
 
                     b.Property<string>("QrHash")
                         .IsRequired()
                         .HasMaxLength(555)
-                        .HasColumnType("varchar(555)");
+                        .HasColumnType("varchar(555)")
+                        .HasColumnName("qr_hash");
 
                     b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("usuario_id");
 
                     b.HasKey("Id");
 
@@ -189,33 +206,44 @@ namespace LexiCore.Infrastructure.Migrations
 
                     b.HasIndex(new[] { "UsuarioId" }, "idx_usuario_qr");
 
-                    b.ToTable("CodigosQr");
+                    b.ToTable("codigos_qr", (string)null);
                 });
 
             modelBuilder.Entity("LexiCore.Domain.Entities.MetodoNotificacion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("id");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Activo")
-                        .HasColumnType("tinyint(1)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true)
+                        .HasColumnName("activo");
 
                     b.Property<string>("Destino")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
+                        .HasColumnType("varchar(150)")
+                        .HasColumnName("destino");
 
                     b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp")
+                        .HasColumnName("fecha_creacion")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("Tipo")
-                        .HasColumnType("int");
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("tipo_notificacion");
 
                     b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("usuario_id");
 
                     b.HasKey("Id");
 
@@ -223,7 +251,7 @@ namespace LexiCore.Infrastructure.Migrations
 
                     b.HasIndex(new[] { "UsuarioId" }, "idx_usuario_notif");
 
-                    b.ToTable("MetodosNotificacion");
+                    b.ToTable("metodos_notificacion", (string)null);
                 });
 
             modelBuilder.Entity("LexiCore.Domain.Entities.Reporte", b =>
@@ -269,26 +297,37 @@ namespace LexiCore.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("id");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Activa")
-                        .HasColumnType("tinyint(1)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true)
+                        .HasColumnName("activa");
 
                     b.Property<DateTime>("FechaLogin")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp")
+                        .HasColumnName("fecha_login")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                    b.Property<int>("MetodoLogin")
-                        .HasColumnType("int");
+                    b.Property<string>("MetodoLogin")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("metodo_login");
 
                     b.Property<string>("SessionTokenHash")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("session_token");
 
                     b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("usuario_id");
 
                     b.HasKey("Id");
 
@@ -298,7 +337,7 @@ namespace LexiCore.Infrastructure.Migrations
 
                     b.HasIndex(new[] { "UsuarioId" }, "idx_usuario_sesion");
 
-                    b.ToTable("Sesiones");
+                    b.ToTable("sesiones", (string)null);
                 });
 
             modelBuilder.Entity("LexiCore.Domain.Entities.Usuario", b =>
