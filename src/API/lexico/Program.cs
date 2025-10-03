@@ -1,6 +1,9 @@
 using System;
+using System.Reflection;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc; // ApiBehaviorOptions
 using Lexico.Application.Contracts;
 using Lexico.Application.Services;
 using Lexico.Infrastructure.Data;
@@ -17,7 +20,26 @@ builder.WebHost.UseUrls($"http://*:{port}");
 // Swagger
 // -----------------------------------------------------------------------------
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lexico.API", Version = "v1" });
+
+    // Evita conflictos de esquemas y acciones
+    c.CustomSchemaIds(t => t.FullName);
+    c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+
+    // Incluir XML SOLO si existe (no requiere tocar el .csproj)
+    var xmlName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlName);
+    if (File.Exists(xmlPath))
+        c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
+});
+
+// Ayuda a Swashbuckle con IFormFile sin exigir [Consumes] en cada acción (opcional)
+builder.Services.Configure<ApiBehaviorOptions>(opt =>
+{
+    opt.SuppressConsumesConstraintForFormFileParameters = true;
+});
 
 // -----------------------------------------------------------------------------
 // CORS (lee AllowedOrigins de appsettings; si viene "*" o vacío => AllowAnyOrigin)
@@ -53,13 +75,11 @@ builder.WebHost.ConfigureKestrel(options =>
 // Servicios (Dapper + repos + servicio de análisis)
 // -----------------------------------------------------------------------------
 builder.Services.AddSingleton<DapperConnectionFactory>();
-
 builder.Services.AddScoped<IIdiomaRepository, IdiomaRepository>();
 builder.Services.AddScoped<IDocumentoRepository, DocumentoRepository>();
 builder.Services.AddScoped<IAnalisisRepository, AnalisisRepository>();
 builder.Services.AddScoped<ILogProcesamientoRepository, LogProcesamientoRepository>();
 builder.Services.AddScoped<IConfiguracionAnalisisRepository, ConfiguracionAnalisisRepository>();
-
 builder.Services.AddScoped<AnalysisService>();
 
 builder.Services.AddControllers();
@@ -69,33 +89,34 @@ var app = builder.Build();
 // -----------------------------------------------------------------------------
 // Cabeceras de proxy (Railway está detrás de reverse proxy)
 // -----------------------------------------------------------------------------
-app.UseForwardedHeaders(new ForwardedHeadersOptions
+var fwd = new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-});
+};
+// Evita los warnings "Unknown proxy"
+fwd.KnownNetworks.Clear();
+fwd.KnownProxies.Clear();
+app.UseForwardedHeaders(fwd);
 
 // -----------------------------------------------------------------------------
-// Swagger (déjalo activo para probar en prod si quieres /swagger)
+// Swagger (mantener en prod para /swagger)
 // -----------------------------------------------------------------------------
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Lexico.API v1");
+});
 
 // -----------------------------------------------------------------------------
 // CORS
 // -----------------------------------------------------------------------------
 app.UseCors("Default");
 
-// Opcional: redirección HTTPS (Railway sirve HTTP detrás de proxy; no estorba)
-app.UseHttpsRedirection();
+// HTTPS redirection detrás de proxy puede dar warning; si quieres, déjalo desactivado
+// app.UseHttpsRedirection();
 
 app.MapControllers();
 
-// Health mínimo por si no tienes controlador de health
-app.MapGet("/api/health", () => Results.Ok(new
-{
-    status = "ok",
-    env = app.Environment.EnvironmentName,
-    port
-}));
+
 
 app.Run();
