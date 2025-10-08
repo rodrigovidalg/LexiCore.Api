@@ -1,71 +1,122 @@
-// Lexico.API/Controllers/DocumentosController.cs
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.AspNetCore.Mvc;
 using Lexico.Application.Contracts;
 using Lexico.Domain.Entities;
 
-namespace Lexico.API.Controllers;
-
-[ApiController]
-[Route("api/documentos")]
-public class DocumentosController : ControllerBase
+namespace Lexico.API.Controllers
 {
-    private readonly IIdiomaRepository _repoIdioma;
-    private readonly IDocumentoRepository _repoDoc;
-    private readonly ILogProcesamientoRepository _repoLog;
-
-    public DocumentosController(IIdiomaRepository repoIdioma, IDocumentoRepository repoDoc, ILogProcesamientoRepository repoLog)
+    [ApiController]
+    [Route("api/documentos")]
+    public class DocumentosController : ControllerBase
     {
-        _repoIdioma = repoIdioma;
-        _repoDoc = repoDoc;
-        _repoLog = repoLog;
-    }
+        private readonly IDocumentoRepository _repo;              // para GetById/List
+        private readonly IUploadDocumentoService _uploader;       // para insertar
 
-    /// <summary>
-    /// Sube un txt y lo inserta en 'documentos'. Requiere: usuarioId y codigoIso (es|en|ru).
-    /// </summary>
-    [HttpPost]
-    [Consumes("multipart/form-data")]
-    [RequestSizeLimit(10_000_000)]
-    public async Task<IActionResult> Subir(
-        IFormFile file,                          // <-- sin [FromForm]
-        [FromForm] int usuarioId,
-        [FromForm] string codigoIso)
-    {
-        if (file == null || file.Length == 0) return BadRequest("Archivo vacío.");
-        if (!file.FileName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)) return BadRequest("Solo .txt.");
-        if (string.IsNullOrWhiteSpace(codigoIso)) return BadRequest("Debe indicar codigoIso (es|en|ru).");
-
-        var idioma = await _repoIdioma.GetByCodigoAsync(codigoIso.ToLower());
-        if (idioma is null) return BadRequest("Idioma no soportado o inactivo.");
-
-        string contenido;
-        using (var reader = new StreamReader(file.OpenReadStream(), Encoding.UTF8, detectEncodingFromByteOrderMarks: true))
-            contenido = await reader.ReadToEndAsync();
-
-        string hash;
-        using (var sha = SHA256.Create())
-            hash = Convert.ToHexString(sha.ComputeHash(Encoding.UTF8.GetBytes(contenido))).ToLower();
-
-        var doc = new Documento
+        public DocumentosController(IDocumentoRepository repo, IUploadDocumentoService uploader)
         {
-            UsuarioId = usuarioId,
-            NombreArchivo = file.FileName,
-            ContenidoOriginal = contenido,
-            IdiomaId = idioma.Id,
-            TamanoArchivo = (int)file.Length,
-            HashDocumento = hash,
-            Estado = "cargado",
-            FechaCarga = DateTime.UtcNow
+            _repo = repo;
+            _uploader = uploader;
+        }
+
+        // ====== SUBIR POR FORM-DATA (file, usuarioId, codigoIso) ======
+        [HttpPost]
+        [RequestSizeLimit(200_000_000)] // 200 MB
+        public async Task<IActionResult> SubirPorForm(
+            [FromForm] IFormFile file,
+            [FromForm] int usuarioId,
+            [FromForm(Name = "codigoIso")] string codigoIso)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest(new { mensaje = "Archivo vacío" });
+
+            string contenido;
+            using (var sr = new StreamReader(file.OpenReadStream(), Encoding.UTF8, detectEncodingFromByteOrderMarks: true))
+                contenido = await sr.ReadToEndAsync();
+
+            var idiomaId = MapCodigoIsoToIdiomaId(codigoIso);
+
+            var doc = new Documento
+            {
+                UsuarioId = usuarioId,
+                NombreArchivo = file.FileName,
+                ContenidoOriginal = contenido,
+                IdiomaId = idiomaId,
+                HashDocumento = ComputeSha256(contenido)
+            };
+
+            // setear tamaño si la propiedad existe (independiente de ñ)
+            TrySetAny(doc, (int)file.Length, "TamanoArchivo", "TamañoArchivo", "TamanioArchivo");
+
+            var id = await _uploader.SubirAsync(doc, HttpContext.RequestAborted);
+
+            return Ok(new
+            {
+                mensaje = "Documento cargado",
+                documentoId = id,
+                idioma = codigoIso?.ToLowerInvariant(),
+                hash = doc.HashDocumento
+            });
+        }
+
+        // ====== GET por ID ======
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> Obtener(int id)
+        {
+            var doc = await _repo.GetByIdAsync(id);
+            if (doc == null) return NotFound(new { mensaje = "Documento no encontrado", id });
+
+            int longitud = 0;
+            try { longitud = doc.ContenidoOriginal?.Length ?? 0; } catch { }
+
+            return Ok(new
+            {
+                id = doc.Id,
+                doc.NombreArchivo,
+                doc.UsuarioId,
+                doc.IdiomaId,
+                longitud
+            });
+        }
+
+        // ======================
+        // Helpers
+        // ======================
+
+        private static int MapCodigoIsoToIdiomaId(string? iso) => (iso ?? "").Trim().ToLowerInvariant() switch
+        {
+            "es" => 1,
+            "en" => 2,
+            "ru" => 3,
+            _ => 0
         };
-        var docId = await _repoDoc.InsertAsync(doc);
 
-        await _repoLog.InsertAsync(new LogProcesamiento {
-            DocumentoId = docId, Etapa = "carga_documento", Estado = "completado",
-            Mensaje = "Documento cargado", TiempoInicio = DateTime.UtcNow, TiempoFin = DateTime.UtcNow, DuracionMs = 0
-        });
+        private static string ComputeSha256(string text)
+        {
+            using var sha = SHA256.Create();
+            var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(text ?? ""));
+            return BitConverter.ToString(bytes).Replace("-", "").ToLowerInvariant();
+        }
 
-        return Ok(new { Mensaje = "Documento cargado", DocumentoId = docId, Idioma = codigoIso.ToLower(), Hash = hash });
+        private static void TrySetAny(object target, object value, params string[] propertyNames)
+        {
+            foreach (var name in propertyNames)
+            {
+                try
+                {
+                    var pi = target.GetType().GetProperty(name, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase);
+                    if (pi != null && pi.CanWrite)
+                    {
+                        var dst = Nullable.GetUnderlyingType(pi.PropertyType) ?? pi.PropertyType;
+                        var final = value;
+                        if (value != null && dst != value.GetType())
+                            final = Convert.ChangeType(value, dst);
+                        pi.SetValue(target, final);
+                        return;
+                    }
+                }
+                catch { /* ignore and try next */ }
+            }
+        }
     }
 }
