@@ -1,42 +1,63 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Auth.Infrastructure.Services;
+using Auth.Application.Contracts;
 using Auth.Application.DTOs;
-using System.Security.Claims;
+using Application.auth.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Auth.API.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class FacialAuthController : ControllerBase
+namespace API.auth.Controllers
 {
-    private readonly IFacialAuthService _facial;
-
-    public FacialAuthController(IFacialAuthService facial)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class FacialAuthController : ControllerBase
     {
-        _facial = facial;
-    }
+        private readonly IFacialAuthService _service;
 
- 
-    [HttpPost("login")]
-    [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status200OK)]
-    public async Task<IActionResult> LoginFacial([FromBody] LoginFacialRequest dto)
-    {
-        var res = await _facial.LoginFacialAsync(dto);
-        return Ok(res);
-    }
+        public FacialAuthController(IFacialAuthService service)
+        {
+            _service = service;
+        }
 
-    /// <summary>
-    /// Registra una codificación facial para el usuario autenticado.
-    /// </summary>
-    [HttpPost("register")]
-    public async Task<IActionResult> RegisterFacial([FromBody] RegisterFacialRequest dto)
-    {
-        var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.IsNullOrEmpty(userIdStr)) return Unauthorized();
-        var userId = int.Parse(userIdStr);
 
-        var id = await _facial.RegisterFacialAsync(userId, dto);
-        return CreatedAtAction(nameof(RegisterFacial), new { id }, new { id });
+        // 1) Capturar -> Segmentar (front usa esto primero)
+        [HttpPost("segment")]
+        
+        public async Task<ActionResult<SegmentResponseDto>> Segment([FromBody] SegmentRequestDto req)
+        {
+            if (string.IsNullOrWhiteSpace(req.RostroBase64))
+                return BadRequest(new SegmentResponseDto { Success = false, Mensaje = "RostroBase64 requerido." });
+
+            var (ok, seg, msg) = await _service.SegmentAsync(req.RostroBase64);
+            return ok
+                ? Ok(new SegmentResponseDto { Success = true, RostroSegmentado = seg })
+                : BadRequest(new SegmentResponseDto { Success = false, Mensaje = msg });
+        }
+
+        // 2) Botón "Guardar foto" (guarda en autenticacion_facial)
+        [HttpPost("save")]
+        public async Task<ActionResult<SaveFaceResponseDto>> Save([FromBody] SaveFaceRequestDto req)
+        {
+            if (req.UsuarioId <= 0 || string.IsNullOrWhiteSpace(req.RostroBase64))
+                return BadRequest(new SaveFaceResponseDto { Success = false, Mensaje = "UsuarioId y RostroBase64 requeridos." });
+
+            var (ok, id, msg) = await _service.SaveFaceAsync(req.UsuarioId, req.RostroBase64);
+            return ok
+                ? Ok(new SaveFaceResponseDto { Success = true, FacialId = id, Mensaje = msg })
+                : BadRequest(new SaveFaceResponseDto { Success = false, Mensaje = msg });
+        }
+
+        // 3) Login con rostro (segmenta adentro y compara)
+        [HttpPost("login")]
+        public async Task<ActionResult<FacialLoginResponse>> Login([FromBody] FacialLoginRequest req)
+        {
+            if (string.IsNullOrWhiteSpace(req.RostroBase64))
+                return BadRequest(new FacialLoginResponse { Success = false, Mensaje = "RostroBase64 requerido." });
+
+            var (ok, userId, tokenOrMsg) = await _service.LoginWithFaceAsync(req.RostroBase64);
+
+            if (!ok)
+                return Unauthorized(new FacialLoginResponse { Success = false, Mensaje = tokenOrMsg });
+
+            return Ok(new FacialLoginResponse { Success = true, Token = tokenOrMsg, Mensaje = "Inicio de sesión exitoso." });
+        }
     }
 }
+
