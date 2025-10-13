@@ -1,18 +1,18 @@
-namespace Auth.Application.DTOs;
-
-public class LoginFacialRequest
+namespace Application.auth.DTOs
 {
-    public string? UsuarioOrEmail { get; set; }
+    public class FacialLoginRequest
+    {
+        public string RostroBase64 { get; set; } = string.Empty;
+    }
 
-    
-    public string Encoding { get; set; } = default!;
+    public class SegmentRequestDto
+    {
+        public string RostroBase64 { get; set; } = string.Empty;
+    }
 
-    public string? ImagenBase64 { get; set; }
-}
-
-public class RegisterFacialRequest
-{
-    public string Encoding { get; set; } = default!;
-    public string? ImagenBase64 { get; set; }
-    public bool Activo { get; set; } = true;
+    public class SaveFaceRequestDto
+    {
+        public int UsuarioId { get; set; }
+        public string RostroBase64 { get; set; } = string.Empty; // de preferencia YA segmentado
+    }
 }
