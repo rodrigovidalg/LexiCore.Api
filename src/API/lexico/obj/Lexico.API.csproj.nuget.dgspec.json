@@ -64,6 +64,10 @@
               "target": "Package",
               "version": "[8.0.20, )"
             },
+            "QuestPDF": {
+              "target": "Package",
+              "version": "[2024.7.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[9.0.5, )"
@@ -141,6 +145,16 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "QuestPDF": {
+              "target": "Package",
+              "version": "[2024.7.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

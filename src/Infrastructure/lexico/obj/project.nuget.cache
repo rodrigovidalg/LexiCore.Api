@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "l7+6jsRi85E=",
+  "dgSpecHash": "hgjt9+zvG9c=",
   "success": true,
   "projectFilePath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -9,7 +9,8 @@
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.2\\microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.9\\microsoft.extensions.primitives.9.0.9.nupkg.sha512",
-    "C:\\Users\\DELL\\.nuget\\packages\\mysqlconnector\\2.4.0\\mysqlconnector.2.4.0.nupkg.sha512"
+    "C:\\Users\\DELL\\.nuget\\packages\\mysqlconnector\\2.4.0\\mysqlconnector.2.4.0.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\questpdf\\2024.7.0\\questpdf.2024.7.0.nupkg.sha512"
   ],
   "logs": []
 }
