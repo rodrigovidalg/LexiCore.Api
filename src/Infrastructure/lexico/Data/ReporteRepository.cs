@@ -3,19 +3,12 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
-using Lexico.Domain.Entities; // Ajusta si tienes tu entidad Reporte en otro ns
+using Lexico.Domain.Entities;
 using MySqlConnector;
+using Lexico.Application.Contracts;
 
 namespace Lexico.Infrastructure.Data
 {
-    public interface IReporteRepository
-    {
-        Task<int> InsertAsync(Reporte reporte, CancellationToken ct = default);
-        Task<Reporte?> GetByIdAsync(int id, CancellationToken ct = default);
-        Task MarkAsSentAsync(int id, DateTime fechaEnvio, string metodoEnvio, string destinatario, CancellationToken ct = default);
-        Task<IEnumerable<Reporte>> ListByAnalisisAsync(int analisisId, CancellationToken ct = default);
-    }
-
     public class ReporteRepository : IReporteRepository
     {
         private readonly DapperConnectionFactory _factory;
@@ -62,32 +55,35 @@ SELECT LAST_INSERT_ID();";
             }, ct);
         }
 
-        public async Task MarkAsSentAsync(int id, DateTime fechaEnvio, string metodoEnvio, string destinatario, CancellationToken ct = default)
-        {
-            const string sql = @"UPDATE reportes
- SET enviado = 1, fecha_envio = @fechaEnvio, metodo_envio = @metodoEnvio, destinatario = @destinatario
- WHERE id = @id;";
-
-            await _factory.WithMySqlConnectionAsync(async conn =>
-            {
-                await conn.ExecuteAsync(
-                    new CommandDefinition(sql, new { id, fechaEnvio, metodoEnvio, destinatario }, cancellationToken: ct)
-                );
-            }, ct);
-        }
-
-        public async Task<IEnumerable<Reporte>> ListByAnalisisAsync(int analisisId, CancellationToken ct = default)
+        public async Task<Reporte?> GetLastByDocumentoAsync(int documentoId, CancellationToken ct = default)
         {
             const string sql = @"SELECT id, analisis_id AS AnalisisId, usuario_id AS UsuarioId,
  tipo_reporte AS TipoReporte, ruta_archivo AS RutaArchivo, `tamaño_archivo` AS TamañoArchivo,
  fecha_generacion AS FechaGeneracion, enviado AS Enviado, fecha_envio AS FechaEnvio,
  metodo_envio AS MetodoEnvio, destinatario AS Destinatario
- FROM reportes WHERE analisis_id = @analisisId ORDER BY fecha_generacion DESC;";
+ FROM reportes
+ WHERE analisis_id IN (SELECT id FROM analisis WHERE documento_id = @documentoId)
+ ORDER BY fecha_generacion DESC
+ LIMIT 1;";
 
             return await _factory.WithMySqlConnectionAsync(async conn =>
             {
-                return await conn.QueryAsync<Reporte>(
-                    new CommandDefinition(sql, new { analisisId }, cancellationToken: ct)
+                return await conn.QueryFirstOrDefaultAsync<Reporte>(
+                    new CommandDefinition(sql, new { documentoId }, cancellationToken: ct)
+                );
+            }, ct);
+        }
+
+        public async Task MarkAsSentAsync(int reporteId, string metodoEnvio, string destinatario, DateTime fechaEnvioUtc, CancellationToken ct = default)
+        {
+            const string sql = @"UPDATE reportes
+ SET enviado = 1, fecha_envio = @fechaEnvioUtc, metodo_envio = @metodoEnvio, destinatario = @destinatario
+ WHERE id = @reporteId;";
+
+            await _factory.WithMySqlConnectionAsync(async conn =>
+            {
+                await conn.ExecuteAsync(
+                    new CommandDefinition(sql, new { reporteId, fechaEnvioUtc, metodoEnvio, destinatario }, cancellationToken: ct)
                 );
             }, ct);
         }

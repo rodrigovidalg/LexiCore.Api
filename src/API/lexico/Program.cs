@@ -1,19 +1,25 @@
 using System;
-using System.Linq; // Para .First() en Swagger
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Mvc; // ApiBehaviorOptions
 
-using Lexico.Application.Contracts;
 using Lexico.Application.Services;
-using Lexico.Infrastructure.Data;
+using Lexico.Application.Services.Email;
+using Lexico.Application.Contracts.Email;
+
+using Lexico.Infrastructure.Data;  // Asegúrate de que aquí esté ReporteRepository
+using Lexico.Infrastructure.Email;
+
+using Lexico.Application.Contracts;  // Asegúrate de que aquí esté IReporteRepository
 
 var builder = WebApplication.CreateBuilder(args);
 
 // -----------------------------------------------------------------------------
-// Puerto dinámico (Railway inyecta PORT). Local: 8080.
+// Puerto dinámico (Railway/Render/etc) — local por defecto 8080
 // -----------------------------------------------------------------------------
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 builder.WebHost.UseUrls($"http://*:{port}");
@@ -24,20 +30,23 @@ builder.WebHost.UseUrls($"http://*:{port}");
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lexico.API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Lexico.API",
+        Version = "v1",
+        Description = "API de Léxico"
+    });
 
-    // Evita conflictos de esquemas y acciones
-    c.CustomSchemaIds(t => t.FullName);
     c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 
-    // Incluir XML SOLO si existe (no requiere tocar el .csproj)
+    // XML comments si está generado en el .csproj (GenerateDocumentationFile=true)
     var xmlName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlName);
     if (File.Exists(xmlPath))
         c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
 });
 
-// Swashbuckle + IFormFile sin exigir [Consumes] en cada acción
+// Permitir IFormFile sin exigir [Consumes] por acción
 builder.Services.Configure<ApiBehaviorOptions>(opt =>
 {
     opt.SuppressConsumesConstraintForFormFileParameters = true;
@@ -47,11 +56,11 @@ builder.Services.Configure<ApiBehaviorOptions>(opt =>
 // CORS
 // -----------------------------------------------------------------------------
 var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
-builder.Services.AddCors(o =>
+builder.Services.AddCors(opt =>
 {
-    o.AddPolicy("Default", p =>
+    opt.AddPolicy("Default", p =>
     {
-        if (allowedOrigins.Length == 0 || Array.Exists(allowedOrigins, x => x == "*"))
+        if (allowedOrigins.Length == 0 || allowedOrigins.Contains("*"))
             p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
         else
             p.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod();
@@ -59,48 +68,63 @@ builder.Services.AddCors(o =>
 });
 
 // -----------------------------------------------------------------------------
-// Límite global de subida multipart (por si subes TXT/PDF grandes)
+// Límites de subida (multipart/form-data)
 // -----------------------------------------------------------------------------
 var maxMultipart = builder.Configuration.GetValue<long?>("Uploads:MaxMultipartBodyLength") ?? 10_000_000; // 10 MB
-builder.Services.Configure<FormOptions>(opt =>
+builder.Services.Configure<FormOptions>(o =>
 {
-    opt.MultipartBodyLengthLimit = maxMultipart;
+    o.MultipartBodyLengthLimit = maxMultipart;
 });
-
-// Alinear también el límite de Kestrel (para requests no multipart)
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.Limits.MaxRequestBodySize = maxMultipart;
 });
 
 // -----------------------------------------------------------------------------
-// Servicios (Dapper + repos + servicio de análisis / subida / reportes)
+// Infraestructura: conexiones y repos
 // -----------------------------------------------------------------------------
 builder.Services.AddSingleton<DapperConnectionFactory>();
 
-// Repos base
+// Repositorios (interfaces -> implementaciones)
+// Cambié la ruta del repositorio para asegurarnos de que no hay ambigüedad en los namespaces
+builder.Services.AddScoped<Lexico.Application.Contracts.IReporteRepository, Lexico.Infrastructure.Data.ReporteRepository>();
+
+// Repositorios adicionales
 builder.Services.AddScoped<IIdiomaRepository, IdiomaRepository>();
 builder.Services.AddScoped<IDocumentoRepository, DocumentoRepository>();
 builder.Services.AddScoped<IAnalisisRepository, AnalisisRepository>();
 builder.Services.AddScoped<ILogProcesamientoRepository, LogProcesamientoRepository>();
 builder.Services.AddScoped<IConfiguracionAnalisisRepository, ConfiguracionAnalisisRepository>();
 
-// Repo de Reportes (infra -> infra). Nota: esta interfaz está en Infrastructure.
-builder.Services.AddScoped<
-    Lexico.Infrastructure.Data.IReporteRepository,
-    Lexico.Infrastructure.Data.ReporteRepository
->();
-
-// Servicio principal de análisis (interfaz -> implementación)
+// Servicios de aplicación (análisis, upload, reportes)
 builder.Services.AddScoped<IAnalysisService, AnalysisService>();
-
-// Servicio de subida directo
 builder.Services.AddScoped<IUploadDocumentoService, UploadDocumentoService>();
-
-// Reportes PDF (QuestPDF) - implementa Contracts.IReportService
 builder.Services.AddScoped<IReportService, ReportService>();
 
-// Controllers (opcional: JSON sin camelCase y omitiendo nulls)
+// -----------------------------------------------------------------------------
+// Email: IEmailService (app) delega en IEmailSender (infra) — SMTP en dev / SendGrid en prod
+// -----------------------------------------------------------------------------
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+builder.Services.AddScoped<IEmailSender>(sp =>
+{
+    var cfg = sp.GetRequiredService<IConfiguration>();
+    var env = sp.GetRequiredService<IHostEnvironment>();
+
+    // Configuración para el correo SMTP en desarrollo
+    var host = cfg["Email:Host"] ?? "localhost";
+    var port = int.TryParse(cfg["Email:Port"], out var p) ? p : 25;
+    var user = cfg["Email:User"];
+    var pass = cfg["Email:Password"];
+    var from = cfg["Email:From"] ?? "Lexico API <no-reply@localhost>";
+    var useStartTls = bool.TryParse(cfg["Email:UseStartTls"], out var tls) && tls;
+
+    return new SmtpEmailService(host, port, user, pass, from, useStartTls);
+});
+
+// -----------------------------------------------------------------------------
+// Controllers + JSON
+// -----------------------------------------------------------------------------
 builder.Services
     .AddControllers()
     .AddJsonOptions(o =>
@@ -113,18 +137,18 @@ builder.Services
 var app = builder.Build();
 
 // -----------------------------------------------------------------------------
-// Cabeceras de proxy (Railway está detrás de reverse proxy)
+// Proxy headers (X-Forwarded-For / X-Forwarded-Proto) — útil en PaaS
 // -----------------------------------------------------------------------------
-var fwd = new ForwardedHeadersOptions
+var fwdOptions = new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 };
-fwd.KnownNetworks.Clear();
-fwd.KnownProxies.Clear();
-app.UseForwardedHeaders(fwd);
+fwdOptions.KnownNetworks.Clear();
+fwdOptions.KnownProxies.Clear();
+app.UseForwardedHeaders(fwdOptions);
 
 // -----------------------------------------------------------------------------
-// Swagger (mantener en prod para /swagger)
+// Swagger UI
 // -----------------------------------------------------------------------------
 app.UseSwagger();
 app.UseSwaggerUI(c =>
@@ -137,9 +161,11 @@ app.UseSwaggerUI(c =>
 // -----------------------------------------------------------------------------
 app.UseCors("Default");
 
-// app.UseHttpsRedirection();
+// app.UseHttpsRedirection(); // deshabilitado si usas proxy/terminación TLS externa
 
 app.MapControllers();
+
+// Health simple
 app.MapGet("/health", () => Results.Ok(new { ok = true, ts = DateTime.UtcNow }));
 
 app.Run();

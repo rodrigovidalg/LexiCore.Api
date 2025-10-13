@@ -331,7 +331,7 @@ namespace Lexico.Application.Services
                 });
             }).GeneratePdf();
 
-            return bytes;
+            return bytes; // Devuelves el byte[]
         }
 
         // ======================= Helpers de análisis =======================
