@@ -26,10 +26,10 @@ var allowedOrigins = new[]
     "http://localhost:3000",  // CRA
     "http://localhost:5173",  // Vite
     "http://localhost:5174",
-    // "https://tu-frontend-en-prod.com"  // ← agrega aquí tu dominio de FRONT en producción si aplica
+    // "https://tu-frontend-en-prod.com" 
 };
 
-// --- CORS: hotfix permisivo SOLO para la demo ---
+// --- CORS: hotfix permisivo 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontPolicy", policy =>
