@@ -22,8 +22,9 @@ namespace Lexico.API.Controllers
         // ====== SUBIR POR FORM-DATA (file, usuarioId, codigoIso) ======
         [HttpPost]
         [RequestSizeLimit(200_000_000)] // 200 MB
+        [Consumes("multipart/form-data")]
         public async Task<IActionResult> SubirPorForm(
-            [FromForm] IFormFile file,
+            IFormFile file,
             [FromForm] int usuarioId,
             [FromForm(Name = "codigoIso")] string codigoIso)
         {
