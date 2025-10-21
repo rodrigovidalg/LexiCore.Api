@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3LXm+oTVNoI=",
+  "dgSpecHash": "WY/gGW7w4VU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj",
+  "projectFilePath": "C:\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",

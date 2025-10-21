@@ -50,3 +50,16 @@ C:\Users\DELL\Desktop\LexiCore.Api\src\Domain\auth\obj\Debug\net8.0\Auth.Domain.
 C:\Users\DELL\Desktop\LexiCore.Api\src\Domain\auth\obj\Debug\net8.0\refint\Auth.Domain.dll
 C:\Users\DELL\Desktop\LexiCore.Api\src\Domain\auth\obj\Debug\net8.0\Auth.Domain.pdb
 C:\Users\DELL\Desktop\LexiCore.Api\src\Domain\auth\obj\Debug\net8.0\ref\Auth.Domain.dll
+C:\LexiCore.Api\src\Domain\auth\bin\Debug\net8.0\Auth.Domain.deps.json
+C:\LexiCore.Api\src\Domain\auth\bin\Debug\net8.0\Auth.Domain.dll
+C:\LexiCore.Api\src\Domain\auth\bin\Debug\net8.0\Auth.Domain.pdb
+C:\LexiCore.Api\src\Domain\auth\obj\Debug\net8.0\Auth.Domain.csproj.AssemblyReference.cache
+C:\LexiCore.Api\src\Domain\auth\obj\Debug\net8.0\Auth.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\LexiCore.Api\src\Domain\auth\obj\Debug\net8.0\Auth.Domain.AssemblyInfoInputs.cache
+C:\LexiCore.Api\src\Domain\auth\obj\Debug\net8.0\Auth.Domain.AssemblyInfo.cs
+C:\LexiCore.Api\src\Domain\auth\obj\Debug\net8.0\Auth.Domain.csproj.CoreCompileInputs.cache
+C:\LexiCore.Api\src\Domain\auth\obj\Debug\net8.0\Auth.Domain.sourcelink.json
+C:\LexiCore.Api\src\Domain\auth\obj\Debug\net8.0\Auth.Domain.dll
+C:\LexiCore.Api\src\Domain\auth\obj\Debug\net8.0\refint\Auth.Domain.dll
+C:\LexiCore.Api\src\Domain\auth\obj\Debug\net8.0\Auth.Domain.pdb
+C:\LexiCore.Api\src\Domain\auth\obj\Debug\net8.0\ref\Auth.Domain.dll

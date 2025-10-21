@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj": {}
+    "C:\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj": {
+    "C:\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj",
+        "projectUniqueName": "C:\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj",
         "projectName": "Auth.Domain",
-        "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj",
+        "projectPath": "C:\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\auth\\obj\\",
+        "outputPath": "C:\\LexiCore.Api\\src\\Domain\\auth\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -71,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.415/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

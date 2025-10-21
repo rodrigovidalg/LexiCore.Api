@@ -45,3 +45,15 @@ C:\Users\DELL\Desktop\LexiCore.Api\src\Domain\lexico\obj\Debug\net8.0\Lexico.Dom
 C:\Users\DELL\Desktop\LexiCore.Api\src\Domain\lexico\obj\Debug\net8.0\refint\Lexico.Domain.dll
 C:\Users\DELL\Desktop\LexiCore.Api\src\Domain\lexico\obj\Debug\net8.0\Lexico.Domain.pdb
 C:\Users\DELL\Desktop\LexiCore.Api\src\Domain\lexico\obj\Debug\net8.0\ref\Lexico.Domain.dll
+C:\LexiCore.Api\src\Domain\lexico\bin\Debug\net8.0\Lexico.Domain.deps.json
+C:\LexiCore.Api\src\Domain\lexico\bin\Debug\net8.0\Lexico.Domain.dll
+C:\LexiCore.Api\src\Domain\lexico\bin\Debug\net8.0\Lexico.Domain.pdb
+C:\LexiCore.Api\src\Domain\lexico\obj\Debug\net8.0\Lexico.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\LexiCore.Api\src\Domain\lexico\obj\Debug\net8.0\Lexico.Domain.AssemblyInfoInputs.cache
+C:\LexiCore.Api\src\Domain\lexico\obj\Debug\net8.0\Lexico.Domain.AssemblyInfo.cs
+C:\LexiCore.Api\src\Domain\lexico\obj\Debug\net8.0\Lexico.Domain.csproj.CoreCompileInputs.cache
+C:\LexiCore.Api\src\Domain\lexico\obj\Debug\net8.0\Lexico.Domain.sourcelink.json
+C:\LexiCore.Api\src\Domain\lexico\obj\Debug\net8.0\Lexico.Domain.dll
+C:\LexiCore.Api\src\Domain\lexico\obj\Debug\net8.0\refint\Lexico.Domain.dll
+C:\LexiCore.Api\src\Domain\lexico\obj\Debug\net8.0\Lexico.Domain.pdb
+C:\LexiCore.Api\src\Domain\lexico\obj\Debug\net8.0\ref\Lexico.Domain.dll

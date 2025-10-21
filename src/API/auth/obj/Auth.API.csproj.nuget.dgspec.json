@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\API\\auth\\Auth.API.csproj": {}
+    "C:\\LexiCore.Api\\src\\API\\auth\\Auth.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\API\\auth\\Auth.API.csproj": {
+    "C:\\LexiCore.Api\\src\\API\\auth\\Auth.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\API\\auth\\Auth.API.csproj",
+        "projectUniqueName": "C:\\LexiCore.Api\\src\\API\\auth\\Auth.API.csproj",
         "projectName": "Auth.API",
-        "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\API\\auth\\Auth.API.csproj",
+        "projectPath": "C:\\LexiCore.Api\\src\\API\\auth\\Auth.API.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\API\\auth\\obj\\",
+        "outputPath": "C:\\LexiCore.Api\\src\\API\\auth\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -26,18 +26,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj": {
-                "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj"
+              "C:\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj": {
+                "projectPath": "C:\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj"
               },
-              "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj"
+              "C:\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj": {
+                "projectPath": "C:\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj"
               }
             }
           }
@@ -93,18 +92,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.415/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj": {
+    "C:\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj",
+        "projectUniqueName": "C:\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj",
         "projectName": "Auth.Application",
-        "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj",
+        "projectPath": "C:\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\auth\\obj\\",
+        "outputPath": "C:\\LexiCore.Api\\src\\Application\\auth\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -119,15 +118,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj": {
-                "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj"
+              "C:\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj": {
+                "projectPath": "C:\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj"
               }
             }
           }
@@ -162,18 +160,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.415/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj": {
+    "C:\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj",
+        "projectUniqueName": "C:\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj",
         "projectName": "Auth.Domain",
-        "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj",
+        "projectPath": "C:\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\auth\\obj\\",
+        "outputPath": "C:\\LexiCore.Api\\src\\Domain\\auth\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -188,7 +186,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -233,18 +230,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.415/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj": {
+    "C:\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj",
+        "projectUniqueName": "C:\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj",
         "projectName": "Auth.Infrastructure",
-        "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj",
+        "projectPath": "C:\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Infrastructure\\auth\\obj\\",
+        "outputPath": "C:\\LexiCore.Api\\src\\Infrastructure\\auth\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -259,18 +256,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj": {
-                "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj"
+              "C:\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj": {
+                "projectPath": "C:\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj"
               },
-              "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj": {
-                "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj"
+              "C:\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj": {
+                "projectPath": "C:\\LexiCore.Api\\src\\Domain\\auth\\Auth.Domain.csproj"
               }
             }
           }
@@ -355,7 +351,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.415/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

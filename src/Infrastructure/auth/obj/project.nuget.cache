@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8oFLqnEOysI=",
+  "dgSpecHash": "dkIDP1/komM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj",
+  "projectFilePath": "C:\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DELL\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\bouncycastle.cryptography\\2.6.1\\bouncycastle.cryptography.2.6.1.nupkg.sha512",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "b/xu5xbEk4I=",
+  "dgSpecHash": "lDopm8vwl6c=",
   "success": true,
-  "projectFilePath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj",
+  "projectFilePath": "C:\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.0\\microsoft.entityframeworkcore.8.0.0.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.0\\microsoft.entityframeworkcore.abstractions.8.0.0.nupkg.sha512",

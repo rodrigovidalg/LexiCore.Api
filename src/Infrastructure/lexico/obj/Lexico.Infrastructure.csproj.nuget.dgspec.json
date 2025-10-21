@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj": {}
+    "C:\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj": {
+    "C:\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj",
+        "projectUniqueName": "C:\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj",
         "projectName": "Lexico.Application",
-        "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj",
+        "projectPath": "C:\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\lexico\\obj\\",
+        "outputPath": "C:\\LexiCore.Api\\src\\Application\\lexico\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -26,15 +26,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj": {
-                "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj"
+              "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj": {
+                "projectPath": "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj"
               }
             }
           }
@@ -79,18 +78,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.415/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj": {
+    "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj",
+        "projectUniqueName": "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj",
         "projectName": "Lexico.Domain",
-        "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj",
+        "projectPath": "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\lexico\\obj\\",
+        "outputPath": "C:\\LexiCore.Api\\src\\Domain\\lexico\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -105,7 +104,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -144,18 +142,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.415/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj": {
+    "C:\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj",
+        "projectUniqueName": "C:\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj",
         "projectName": "Lexico.Infrastructure",
-        "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj",
+        "projectPath": "C:\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Infrastructure\\lexico\\obj\\",
+        "outputPath": "C:\\LexiCore.Api\\src\\Infrastructure\\lexico\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -170,18 +168,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj": {
-                "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj"
+              "C:\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj": {
+                "projectPath": "C:\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj"
               },
-              "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj": {
-                "projectPath": "C:\\Users\\DELL\\Desktop\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj"
+              "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj": {
+                "projectPath": "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj"
               }
             }
           }
@@ -241,7 +238,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.415/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
