@@ -29,16 +29,18 @@ var allowedOrigins = new[]
     // "https://tu-frontend-en-prod.com"  // ← agrega aquí tu dominio de FRONT en producción si aplica
 };
 
+// --- CORS: hotfix permisivo SOLO para la demo ---
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontPolicy", policy =>
-        policy.WithOrigins(allowedOrigins)
-              .AllowAnyMethod()
-              .AllowAnyHeader()
-              .WithExposedHeaders("Content-Disposition") // para descargas PDF
-              // .AllowCredentials() // SOLO si usas cookies/sesiones
+        policy
+            .AllowAnyOrigin()   // ← Hotfix: permitir cualquier origen
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithExposedHeaders("Content-Disposition")
     );
 });
+
 
 // -----------------------------------------------------------------------------
 // Puerto dinámico (Railway) — local por defecto 8080
