@@ -26,21 +26,20 @@ var allowedOrigins = new[]
     "http://localhost:3000",  // CRA
     "http://localhost:5173",  // Vite
     "http://localhost:5174",
-    // "https://tu-frontend-en-prod.com" 
+    // "https://tu-frontend-en-prod.com"
 };
 
-// --- CORS: hotfix permisivo 
+// --- CORS: hotfix permisivo
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontPolicy", policy =>
         policy
-            .AllowAnyOrigin()   // ← Hotfix: permitir cualquier origen
+            .AllowAnyOrigin()   // Hotfix: permitir cualquier origen (no combines con AllowCredentials)
             .AllowAnyMethod()
             .AllowAnyHeader()
             .WithExposedHeaders("Content-Disposition")
     );
 });
-
 
 // -----------------------------------------------------------------------------
 // Puerto dinámico (Railway) — local por defecto 8080
@@ -146,11 +145,29 @@ app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Lexico.AP
 // -----------------------------------------------------------------------------
 app.UseRouting();
 
-app.UseCors("FrontPolicy");       // ⬅️ CORS aquí (antes de Auth y MapControllers)
+// 🔧 Middleware CORS “a prueba de todo” (preflight + errores)
+app.Use(async (ctx, next) =>
+{
+    if (HttpMethods.IsOptions(ctx.Request.Method))
+    {
+        ctx.Response.Headers["Access-Control-Allow-Origin"] = "*";
+        ctx.Response.Headers["Access-Control-Allow-Methods"] = "*";
+        ctx.Response.Headers["Access-Control-Allow-Headers"] = "*";
+        ctx.Response.StatusCode = StatusCodes.Status204NoContent;
+        return;
+    }
+
+    await next();
+
+    if (!ctx.Response.Headers.ContainsKey("Access-Control-Allow-Origin"))
+        ctx.Response.Headers["Access-Control-Allow-Origin"] = "*";
+});
+
+app.UseCors("FrontPolicy");       // CORS aquí (antes de Auth y MapControllers)
 
 // app.UseHttpsRedirection();     // deshabilitado si TLS termina en el proxy (Railway)
 
-app.UseAuthentication();          // si tienes auth global
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
