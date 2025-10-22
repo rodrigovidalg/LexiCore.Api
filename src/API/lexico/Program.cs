@@ -19,13 +19,13 @@ using Lexico.Application.Contracts;
 var builder = WebApplication.CreateBuilder(args);
 
 // -----------------------------------------------------------------------------
-// C O R S  ✅ VERSIÓN MÁS PERMISIVA PARA DEBUGGING
+// C O R S  ✅ VERSIÓN PERMISIVA (puedes cambiar a restrictiva después)
 // -----------------------------------------------------------------------------
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontPolicy", policy =>
         policy
-            .AllowAnyOrigin()      // ⚠️ TEMPORAL: Permite CUALQUIER origen
+            .AllowAnyOrigin()
             .AllowAnyHeader()
             .AllowAnyMethod()
             .WithExposedHeaders("Content-Disposition")
@@ -91,16 +91,26 @@ builder.Services.AddScoped<IReportService, ReportService>();
 
 // Email
 builder.Services.AddScoped<IEmailService, EmailService>();
+
+// -----------------------------------------------------------------------------
+// ✅ SendGrid Email (funciona en Railway)
+// -----------------------------------------------------------------------------
 builder.Services.AddScoped<IEmailSender>(sp =>
 {
     var cfg = sp.GetRequiredService<IConfiguration>();
-    var host = cfg["Email:Host"] ?? "localhost";
-    var port = int.TryParse(cfg["Email:Port"], out var p) ? p : 25;
-    var user = cfg["Email:User"];
-    var pass = cfg["Email:Password"];
-    var from = cfg["Email:From"] ?? "Lexico API <no-reply@localhost>";
-    var useStartTls = bool.TryParse(cfg["Email:UseStartTls"], out var tls) && tls;
-    return new SmtpEmailService(host, port, user, pass, from, useStartTls);
+    
+    // Leer configuración de SendGrid
+    var apiKey = cfg["SendGrid:ApiKey"] ?? cfg["SENDGRID_API_KEY"];
+    var fromEmail = cfg["SendGrid:FromEmail"] ?? cfg["Email:From"] ?? "no-reply@lexico.com";
+    var fromName = cfg["SendGrid:FromName"] ?? "Lexico API";
+
+    if (string.IsNullOrWhiteSpace(apiKey))
+    {
+        throw new Exception("SendGrid API Key no configurada. " +
+            "Agrega la variable de entorno: SendGrid__ApiKey o SENDGRID_API_KEY");
+    }
+
+    return new SendGridEmailService(apiKey, fromEmail, fromName);
 });
 
 // Controllers + JSON
@@ -133,14 +143,12 @@ app.UseSwagger();
 app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Lexico.API v1"); });
 
 // -----------------------------------------------------------------------------
-// P I P E L I N E  (orden correcto) ✅ CRÍTICO
+// P I P E L I N E  (orden correcto)
 // -----------------------------------------------------------------------------
 app.UseRouting();
-
-// ✅ CORS debe ir ANTES de Authentication/Authorization
 app.UseCors("FrontPolicy");
 
-// app.UseHttpsRedirection();     // deshabilitado si TLS termina en el proxy (Railway)
+// app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -150,9 +158,9 @@ app.MapControllers();
 // Health simple
 app.MapGet("/health", () => Results.Ok(new { ok = true, ts = DateTime.UtcNow }));
 
-// ✅ Log de inicio para confirmar que el servidor arrancó
+// ✅ Log de inicio
 Console.WriteLine("=== LEXICO API INICIADA ===");
 Console.WriteLine($"=== Puerto: {port} ===");
-Console.WriteLine($"=== CORS: AllowAnyOrigin (TEMPORAL) ===");
+Console.WriteLine("=== Email: SendGrid API ===");
 
 app.Run();
