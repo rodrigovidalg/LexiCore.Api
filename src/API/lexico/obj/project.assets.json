@@ -351,7 +351,7 @@
           "Microsoft.Extensions.Configuration.Abstractions": "9.0.9",
           "Microsoft.Extensions.Options": "8.0.2",
           "MySqlConnector": "2.4.0",
-          "SendGrid": "9.28.1"
+          "SendGrid": "9.29.3"
         },
         "compile": {
           "bin/placeholder/Lexico.Infrastructure.dll": {}
