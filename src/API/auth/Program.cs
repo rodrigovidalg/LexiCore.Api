@@ -58,6 +58,7 @@ builder.Services.AddAuthorization();
 
 // ===== CORS =====
 // Si prefieres listar orígenes: .WithOrigins("http://127.0.0.1:5500","http://localhost:3000")
+// ===== CORS =====
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("dev", p => p
