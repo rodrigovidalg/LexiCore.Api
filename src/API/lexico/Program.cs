@@ -19,27 +19,15 @@ using Lexico.Application.Contracts;
 var builder = WebApplication.CreateBuilder(args);
 
 // -----------------------------------------------------------------------------
-// C O R S  ✅ CORREGIDO: Incluye tanto localhost como Railway
+// C O R S  ✅ VERSIÓN MÁS PERMISIVA PARA DEBUGGING
 // -----------------------------------------------------------------------------
-var allowedOrigins = new[]
-{
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "http://localhost:5174",
-    // ✅ AGREGADO: Permite solicitudes desde la propia API de Railway
-    "https://lexicoreapi-production.up.railway.app"
-    // Si tienes un frontend desplegado, agrégalo aquí también:
-    // "https://tu-frontend-en-prod.com"
-};
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontPolicy", policy =>
         policy
-            .WithOrigins(allowedOrigins)
+            .AllowAnyOrigin()      // ⚠️ TEMPORAL: Permite CUALQUIER origen
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowCredentials()  // ✅ AGREGADO: Permite credenciales (tokens, cookies)
             .WithExposedHeaders("Content-Disposition")
     );
 });
@@ -145,7 +133,7 @@ app.UseSwagger();
 app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Lexico.API v1"); });
 
 // -----------------------------------------------------------------------------
-// P I P E L I N E  (orden correcto)
+// P I P E L I N E  (orden correcto) ✅ CRÍTICO
 // -----------------------------------------------------------------------------
 app.UseRouting();
 
@@ -161,5 +149,10 @@ app.MapControllers();
 
 // Health simple
 app.MapGet("/health", () => Results.Ok(new { ok = true, ts = DateTime.UtcNow }));
+
+// ✅ Log de inicio para confirmar que el servidor arrancó
+Console.WriteLine("=== LEXICO API INICIADA ===");
+Console.WriteLine($"=== Puerto: {port} ===");
+Console.WriteLine($"=== CORS: AllowAnyOrigin (TEMPORAL) ===");
 
 app.Run();
