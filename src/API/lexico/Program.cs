@@ -147,6 +147,36 @@ app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Lexico.AP
 // -----------------------------------------------------------------------------
 app.UseRouting();
 app.UseCors("FrontPolicy");
+// Capa ultra-defensiva CORS: asegura encabezados incluso en errores y responde preflight
+app.Use(async (ctx, next) =>
+{
+    // Si viene de un origen (navegador), agrega los headers CORS
+    var origin = ctx.Request.Headers.Origin.ToString();
+    if (!string.IsNullOrEmpty(origin))
+    {
+        // Si NO usas cookies (credentials), puedes usar '*'
+        // ctx.Response.Headers["Access-Control-Allow-Origin"] = "*";
+        // Si prefieres reflejar el Origin:
+        ctx.Response.Headers["Access-Control-Allow-Origin"] = origin;
+        ctx.Response.Headers["Vary"] = "Origin";
+        ctx.Response.Headers["Access-Control-Allow-Headers"] =
+            ctx.Request.Headers["Access-Control-Request-Headers"].ToString() ?? "Content-Type, Authorization";
+        ctx.Response.Headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS";
+        // Solo si usas cookies/sesión:
+        // ctx.Response.Headers["Access-Control-Allow-Credentials"] = "true";
+    }
+
+    // Respuesta inmediata al preflight
+    if (string.Equals(ctx.Request.Method, "OPTIONS", StringComparison.OrdinalIgnoreCase))
+    {
+        ctx.Response.StatusCode = StatusCodes.Status204NoContent;
+        await ctx.Response.CompleteAsync();
+        return;
+    }
+
+    await next();
+});
+
 
 // app.UseHttpsRedirection();
 
