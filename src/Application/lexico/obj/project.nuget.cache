@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "WY/gGW7w4VU=",
+  "dgSpecHash": "R/UVYvIFQM4=",
   "success": true,
-  "projectFilePath": "C:\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj",
+  "projectFilePath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\DELL\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
-    "C:\\Users\\DELL\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
-    "C:\\Users\\DELL\\.nuget\\packages\\questpdf\\2024.7.0\\questpdf.2024.7.0.nupkg.sha512"
+    "C:\\Users\\LG\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\LG\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "C:\\Users\\LG\\.nuget\\packages\\questpdf\\2024.7.0\\questpdf.2024.7.0.nupkg.sha512"
   ],
   "logs": []
 }

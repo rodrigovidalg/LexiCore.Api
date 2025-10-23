@@ -2251,23 +2251,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\DELL\\.nuget\\packages\\": {},
+    "C:\\Users\\LG\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\LexiCore.Api\\src\\API\\auth\\Auth.API.csproj",
+      "projectUniqueName": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\API\\auth\\Auth.API.csproj",
       "projectName": "Auth.API",
-      "projectPath": "C:\\LexiCore.Api\\src\\API\\auth\\Auth.API.csproj",
-      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "C:\\LexiCore.Api\\src\\API\\auth\\obj\\",
+      "projectPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\API\\auth\\Auth.API.csproj",
+      "packagesPath": "C:\\Users\\LG\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\API\\auth\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\LG\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2282,11 +2282,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj": {
-              "projectPath": "C:\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj"
+            "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj": {
+              "projectPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Application\\auth\\Auth.Application.csproj"
             },
-            "C:\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj": {
-              "projectPath": "C:\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj"
+            "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Infrastructure\\auth\\Auth.Infrastructure.csproj"
             }
           }
         }
@@ -2342,7 +2342,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.415/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

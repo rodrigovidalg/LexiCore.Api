@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\LexiCore.Api\\src\\API\\lexico\\Lexico.API.csproj": {}
+    "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\API\\lexico\\Lexico.API.csproj": {}
   },
   "projects": {
-    "C:\\LexiCore.Api\\src\\API\\lexico\\Lexico.API.csproj": {
+    "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\API\\lexico\\Lexico.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\LexiCore.Api\\src\\API\\lexico\\Lexico.API.csproj",
+        "projectUniqueName": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\API\\lexico\\Lexico.API.csproj",
         "projectName": "Lexico.API",
-        "projectPath": "C:\\LexiCore.Api\\src\\API\\lexico\\Lexico.API.csproj",
-        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\LexiCore.Api\\src\\API\\lexico\\obj\\",
+        "projectPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\API\\lexico\\Lexico.API.csproj",
+        "packagesPath": "C:\\Users\\LG\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\API\\lexico\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\LG\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,14 +32,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj": {
-                "projectPath": "C:\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj"
+              "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj": {
+                "projectPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj"
               },
-              "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj": {
-                "projectPath": "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj"
+              "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj": {
+                "projectPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj"
               },
-              "C:\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj": {
-                "projectPath": "C:\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj"
+              "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj"
               }
             }
           }
@@ -95,24 +95,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.415/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj": {
+    "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj",
+        "projectUniqueName": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj",
         "projectName": "Lexico.Application",
-        "projectPath": "C:\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj",
-        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\LexiCore.Api\\src\\Application\\lexico\\obj\\",
+        "projectPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj",
+        "packagesPath": "C:\\Users\\LG\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Application\\lexico\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\LG\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -127,8 +127,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj": {
-                "projectPath": "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj"
+              "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj": {
+                "projectPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj"
               }
             }
           }
@@ -173,24 +173,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.415/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj": {
+    "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj",
         "projectName": "Lexico.Domain",
-        "projectPath": "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj",
-        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\LexiCore.Api\\src\\Domain\\lexico\\obj\\",
+        "projectPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj",
+        "packagesPath": "C:\\Users\\LG\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Domain\\lexico\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\LG\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -237,24 +237,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.415/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj": {
+    "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj",
         "projectName": "Lexico.Infrastructure",
-        "projectPath": "C:\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\LexiCore.Api\\src\\Infrastructure\\lexico\\obj\\",
+        "projectPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Infrastructure\\lexico\\Lexico.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\LG\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Infrastructure\\lexico\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\LG\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -269,11 +269,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj": {
-                "projectPath": "C:\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj"
+              "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj": {
+                "projectPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Application\\lexico\\Lexico.Application.csproj"
               },
-              "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj": {
-                "projectPath": "C:\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj"
+              "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj": {
+                "projectPath": "C:\\Users\\LG\\Documents\\Automatas\\LexiCore.Api\\src\\Domain\\lexico\\Lexico.Domain.csproj"
               }
             }
           }
@@ -333,7 +333,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.415/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

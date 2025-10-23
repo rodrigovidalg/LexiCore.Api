@@ -3,6 +3,9 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Auth.Domain.Entities;
 using Auth.Infrastructure.Data;
+using System.Linq;                 // agregado para LINQ (Where, etc.)
+using System;                     // agregado para TimeSpan, DateTimeOffset
+using System.Threading;           // agregado para CancellationToken
 
 namespace Auth.Infrastructure.Services;
 
@@ -12,6 +15,14 @@ public interface IQrService
     Task<CodigoQr?> ValidateQrAsync(string codigoQr, CancellationToken ct = default);
     Task<bool> InvalidateQrAsync(int usuarioId, CancellationToken ct = default);
     string ComputeSha256(string input);
+
+    // ====== NUEVO: Login usando QR de CARNET (permanente) ======
+    /// <summary>
+    /// Permite iniciar sesión con el QR del carnet (permanente).
+    /// No invalida el QR; únicamente verifica que exista, esté activo
+    /// y que el usuario asociado esté activo. Devuelve el Usuario si es válido; null si no.
+    /// </summary>
+    Task<Usuario?> TryLoginWithCarnetQrAsync(string codigoQr, CancellationToken ct = default);
 }
 
 public class QrService : IQrService
@@ -113,7 +124,7 @@ public class QrService : IQrService
     private static string GenerateSecurePayload(int usuarioId)
     {
         // 16 bytes aleatorios crípticamente seguros → HEX
-        Span<byte> rnd = stackalloc byte[16];
+        var rnd = new byte[16];
         RandomNumberGenerator.Fill(rnd);
         var rndHex = Convert.ToHexString(rnd);
 
@@ -121,5 +132,30 @@ public class QrService : IQrService
         var ticks = DateTime.UtcNow.Ticks;
 
         return $"QR-{usuarioId}-{ticks}-{rndHex}";
+    }
+
+    // ===================== NUEVO: LOGIN con QR de CARNET =====================
+
+    /// <summary>
+    /// Permite iniciar sesión con el QR del carnet (permanente).
+    /// - Busca por 'codigo_qr' y 'activo=1'
+    /// - Incluye el Usuario y verifica que esté activo
+    /// - NO invalida el QR (el carnet sigue siendo válido)
+    /// Devuelve el Usuario si todo es válido; si no, null.
+    /// </summary>
+    public async Task<Usuario?> TryLoginWithCarnetQrAsync(string codigoQr, CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(codigoQr)) return null;
+
+        // Usamos 'codigo' porque tienes índice en 'codigo_qr' (más rápido que buscar por hash en tu esquema actual)
+        var row = await _db.CodigosQr
+            .Include(q => q.Usuario)
+            .FirstOrDefaultAsync(q => q.Codigo == codigoQr && q.Activo, ct);
+
+        if (row is null || row.Usuario is null) return null;
+        if (!row.Usuario.Activo) return null;
+
+        // No lo desactivamos: el carnet debe quedar siempre usable
+        return row.Usuario;
     }
 }
